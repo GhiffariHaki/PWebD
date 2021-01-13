@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+        <div class="clearfix">
+            <a class="btn btn-primary left" href="{% url 'tugas:list_tugas' %}"> List Tugas </a>
+        </div>
+        
+        <div class="clearfix"style="margin-top:30px">
+            <h2>Nama Tugas: {{ assignmenttugas.title }}</h2>
+            <p>Deadline : <span style="color: gray;">{{ assignmenttugas.deadline }}</span></p>
+            <hr>
+            <p>Deskripsi : {{ assignmenttugas.description }}</p>
+        </div>
+        <div class="card-body bg-dark sticky-top">
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <h3 style="color: white; font-weight: bold;">Assignment :</h3>
+                <p style="color: white; font-weight: bold;"> Deskripsi Assignment : {{ form.description }}</p>
+                <p style="color: white; font-weight: bold;"> Submission : {{ form.assignment }}</p>
+                <button type="submit" class="btn btn-info right"> Submit </button>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}

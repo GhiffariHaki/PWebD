@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="clearfix" style="margin-bottom:30px">
+  <a class="btn btn-info left" href="{% url 'tugas:list_tugas' %}"> List Tugas </a>
+</div>
+
+<form method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  <table class="form form-table">
+    <div id="div_id_title" class="form-group" style="margin-top:15px;"> <label for="id_title" class=" requiredField"><strong>Title</strong></label> <div class=""> <input type="text" name="title" value="test" maxlength="60" class="textinput textInput form-control" required id="id_title"> </div> </div> 
+    <div id="div_id_description" class="form-group"style="margin-top:15px;" > <label for="id_description" class=" requiredField"><strong>Description </strong></label> <div class=""> <textarea name="description" cols="40" rows="10" class="textarea form-control" required id="id_description"> test</textarea> </div> </div> 
+    <div id="div_id_deadline" class="form-group"style="margin-top:15px;"> <label for="id_deadline" class=" requiredField"><strong>Deadline</strong></label> <div class=""> <input type="text" name="deadline" value="2021-01-12 20:58:00" class="datetimeinput form-control" required id="id_deadline"> </div> </div>
+    <button type="submit" class="btn btn-info right" style="margin-top:30px;"> Submit </button>
+  </table>
+</form>
+{% endblock %}

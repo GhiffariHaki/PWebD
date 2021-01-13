@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="clearfix">
+  {% if user.is_superuser %}
+    <a class="btn btn-info right mr-2" href="{% url 'tugas:tugas_new' %}"> + New Tugas </a>
+  {% endif %}
+</div>
+<div style="color: rgb(255, 255, 255);">
+    <table class="table table-bordered" style="margin-top:30px;">
+        <thead>                  
+            <tr style="text-align: center;">
+              <th style="width: 10px;">No</th>
+              <th >Title</th>
+              <th>Description</th>
+              <th>Deadline</th>
+              {% if user.is_superuser %}
+              <th style="width: 120px;">List Assignment</th>
+              <th style="width: 120px;">Edit</th>
+            {% else %}
+              <th>Submission</th>
+            {% endif %}
+            </tr>
+          </thead>
+          <tbody>
+            {% for tugas in object_list %}
+            <tr role="row">
+                <td style="text-align:center;">{{ forloop.counter }}</td>
+                <td>{{ tugas.title}}</td>
+                <td>{{ tugas.description }}</td>
+                <td>{{ tugas.deadline }}</td>
+                {% if user.is_superuser %}
+                  <td style="text-align:center">
+                    <a class="btn btn-primary" href="{{ tugas.id }}/listassign">List</a>
+                  </td>
+                  <td style="text-align:center">
+                    <a class="btn btn-secondary" href="{{ tugas.id }}/edit">Edit</a>
+                  </td>
+                {% else %}
+                  <td style="text-align:center">
+                    <a class="btn btn-primary" href="{{ tugas.id }}/assign">Assign</a>
+                  </td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+          </tbody>
+    </table>
+</div>
+{% endblock %}

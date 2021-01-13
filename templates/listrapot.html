@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="clearfix">
+  {% if user.is_superuser %}
+    <a class="btn btn-info right mr-2" href="{% url 'rapot:templateNilai_new' %}"> + New Template Nilai </a>
+    <a class="btn btn-info right mr-2" href="{% url 'rapot:templateKPI_new' %}"> + New Template KPI </a>
+  {% endif %}
+</div>
+<div style="color: blueviolet;">
+    <table class="table table-bordered" style="margin-top:30px;">
+        <thead>                  
+            <tr style="text-align: center;">
+              <th>NRP</th>
+              <th>Nama Lengkap</th>
+              <th>Detail</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for object in object_list %}
+            <tr role="row">
+                {% if object.is_superuser == 0 %}
+                <td>{{ object.username}}</td>
+                <td>{{ object.first_name}} {{ object.last_name }}</td>
+                <td>
+                    <a class="btn btn-primary" href="{{ object.id }}/detail">Detail</a>
+                </td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+          </tbody>
+    </table>
+</div>
+{% endblock %}

@@ -1,0 +1,63 @@
+{% load static %}
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+      <a class="navbar-brand sticky-top" href="/">
+        <img src="{% static 'img/hmtc.png' %}" class="m-2" alt="logo_ft" width="60" height="60">
+        <span style="font-size: xx-large;font-weight: bold;color: antiquewhite;">Sistem Kaderisasi HMTC</span>   
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDarkDropdown" aria-controls="navbarNavDarkDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="{% url 'home:home' %}">Home</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="{% url 'tugas:list_tugas' %}">Tugas</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="{% url 'kegiatan:calendar' %}">Kegiatan</a>
+          </li>
+          {% if user.is_authenticated %}
+            {% if user.is_superuser %}
+              <li class="nav-item active">
+                <a class="nav-link" href="{% url 'rapot:list_rapot' %}">Rapot</a>
+              </li>
+              {% else %}
+              <li class="nav-item active">
+                <a class="nav-link" href="/rapot/{{request.user.id}}/detail">Rapot</a>
+              </li>          
+            {% endif %}
+            {% else %}
+            <li class="nav-item active">
+              <a class="nav-link" href="/{{request.user.id}}/detail">Rapot</a>
+            </li>  
+          {% endif %}
+        </ul> 
+      
+        {% if user.is_authenticated %}
+        <ul class="navbar-nav">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              {{user.username}}
+            </a>
+            <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+              <li><a class="dropdown-item" href="/profile">Profile</a></li>
+              <li><a class="dropdown-item" href="/logout">Logout</a></li>
+            </ul>
+          </li>
+        </ul>
+        {% else %}
+        <ul class="navbar-nav">
+          <li class="nav-item active">
+              <a class="nav-link" href="/login">Login</a>
+          </li>
+  
+          <li class="nav-item active">
+              <a class="nav-link" href="/register">Register</a>
+          </li>
+        </ul> 
+        {% endif %}
+      </div>
+    </div>
+  </nav>

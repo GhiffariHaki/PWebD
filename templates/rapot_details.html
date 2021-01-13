@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+        {% if user.is_superuser %}
+        <div class="clearfix">
+            <a class="btn btn-primary left" href="{% url 'rapot:list_rapot' %}"> List Rapot </a>
+            <a class="btn btn-primary left" href="{% url 'rapot:add_detailrapot' user.id%}"> + Detail Rapot </a>
+        </div>
+        {% endif %}
+        
+        <div class="clearfix">
+            <h3>Rapot {{ user.username }} - {{user.first_name}} {{user.last_name}}</h3>
+        </div>
+        <hr>
+        <table class="table table-bordered">
+            <thead>                  
+                <tr>
+                  <th>Nilai</th>
+                  <th>Realisasi</th>
+                  <th>KPI</th>
+                  <th>Realisasi</th>
+                  {% if user.is_superuser %}
+                  <th>Action</th>
+                  {% endif %}
+                </tr>
+              </thead>
+              <tbody>
+                {% for object in rapot %}
+                <tr role="row">
+                    <td>{{ object.nilai.nilai }}</td>
+                    <td>{{ object.realisasiNilai }}</td>
+                    <td>{{ object.KPI.KPI }}</td>
+                    <td>{{ object.realisasiKPI }}</td>
+                    {% if user.is_superuser %}
+                    <td>
+                        <a class="btn btn-danger" href="#">Remove</a>
+                    </td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+              </tbody>
+        </table>
+    </div>
+{% endblock %}

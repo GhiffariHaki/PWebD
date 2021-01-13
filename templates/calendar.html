@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block link %}
+<link rel="stylesheet" type="text/css" href="{% static 'style/calendar.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="clearfix">
+    <a class="btn btn-info right mr-2" href="{% url 'kegiatan:calendar' %}?{{ prev_month }}"> << Previous Month </a>
+	<a class="btn btn-info right mr-2" href="{% url 'kegiatan:calendar' %}?{{ next_month }} "> Next Month >> </a>
+    {% if user.is_superuser %}
+    <a class="btn btn-info right mr-2" href="{% url 'kegiatan:event_new' %}"> + New Event </a>
+    {% endif %}
+</div>
+<div style="color: rgb(0, 0, 0);margin-top: 20px;">
+    {{ calendar }}
+</div>
+{% endblock content %}

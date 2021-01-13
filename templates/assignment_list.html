@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+        <div class="clearfix">
+            <a class="btn btn-primary left" href="{% url 'tugas:list_tugas' %}"> List Tugas </a>
+        </div>
+        <div class="clearfix" style="margin-top:20px">
+            <h3>List Submission Tugas - {{ tugas.title }}</h3>
+        </div>
+        <hr>
+        <table class="table table-bordered" >
+            <thead>                  
+                <tr style="text-align: center">
+                    <th>#</th>
+                    <th>Pengumpul</th>
+                    <th>Waktu Pengumpulan</th>
+                    <th>Nilai</th>
+                    <th>Beri Nilai</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for object in document %}
+                <tr role="row">
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ object.user_id.username }} - {{object.user_id.first_name}} {{object.user_id.last_name}}</td>
+                    <td>{{ object.submitted_date }}</td>
+                    <td>{{ object.nilai }}</td>
+                    <td>
+                        <a class="btn btn-success" href="/tugas/{{ object.pk }}/edit/document/">Nilai</a>
+                    </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+        </table>
+    </div>
+{% endblock %}
