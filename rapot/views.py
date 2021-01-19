@@ -50,14 +50,14 @@ def rapot_details(request, user_id):
     user = User.objects.get(id=user_id)
     rapot = Rapot.objects.filter(user=user)
     context = {
-        'user': user,
+        'userrapot' : user,
         'rapot': rapot
     }
     return render(request, 'rapot_details.html', context)
 
 def add_detailrapot(request, user_id):
     forms = RapotForm()
-    user = User.objects.get(id=user_id)
+    userrapot = User.objects.get(id=user_id)
     if request.method == 'POST':
         forms = RapotForm(request.POST)
         if forms.is_valid():
@@ -66,12 +66,13 @@ def add_detailrapot(request, user_id):
             KPI = forms.cleaned_data['KPI']
             realisasiKPI = forms.cleaned_data['realisasiKPI']
             Rapot.objects.create(
-                user=user,
+                user=userrapot,
                 nilai=nilai,
                 realisasiNilai=realisasiNilai,
                 KPI=KPI,
                 realisasiKPI=realisasiKPI,
             )
+            return redirect('rapot:list_rapot')
     context = {
         'form': forms
     }
